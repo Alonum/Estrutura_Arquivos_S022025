@@ -1,0 +1,72 @@
+{
+   "courses": [
+      {
+         "credit": 3,
+         "grade": 0.0,
+         "id": "1",
+         "studentId": "1"
+      },
+      {
+         "credit": 6,
+         "grade": 0.0,
+         "id": "2",
+         "studentId": "1"
+      },
+      {
+         "credit": 3,
+         "grade": 0.0,
+         "id": "1",
+         "studentId": "2"
+      },
+      {
+         "credit": 6,
+         "grade": 0.0,
+         "id": "2",
+         "studentId": "2"
+      },
+      {
+         "credit": 3,
+         "grade": 0.0,
+         "id": "1",
+         "studentId": "3"
+      },
+      {
+         "credit": 6,
+         "grade": 0.0,
+         "id": "2",
+         "studentId": "3"
+      }
+   ],
+   "students": [
+      {
+         "CPF": "",
+         "address": "Rua 16",
+         "credits": 1600677166,
+         "dayDate": 16,
+         "id": "1",
+         "monthDate": 5,
+         "name": "Alona",
+         "yearDate": 2004
+      },
+      {
+         "CPF": "",
+         "address": "Rua 10",
+         "credits": 1600677166,
+         "dayDate": 5,
+         "id": "2",
+         "monthDate": 12,
+         "name": "Joao",
+         "yearDate": 2006
+      },
+      {
+         "CPF": "",
+         "address": "Rua 3",
+         "credits": 1600677166,
+         "dayDate": 20,
+         "id": "3",
+         "monthDate": 4,
+         "name": "Pedro",
+         "yearDate": 2002
+      }
+   ]
+}

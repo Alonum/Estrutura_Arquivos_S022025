@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-
+#include <string>
 //biblioteca baixada de nlohmann https://github.com/nlohmann/json.git
 #include "nlohmann/json.hpp"
 
@@ -43,7 +43,6 @@ void jsonSaveInformation(std::vector<academicInfo> Info, std::string filename,  
 	arquivo.close();
 }
 
-
 nlohmann::json jsonReadInformation(std::string filename)
 {
 	std::ifstream arquivo(filename);
@@ -53,57 +52,63 @@ nlohmann::json jsonReadInformation(std::string filename)
 	return data;
 }
 
-
-/*//pega o vetor de objetos e o nome do arquivo em string
-void crudeSaveInformation(std::vector<academicInfo> Info, std::string filename)
+void includeJson(std::string jsonFile, std::string type, nlohmann::json json)
 {
-    //abre o arquivo pra impressao binaria, adicionando no final do arquivo(flags binary e append)
-	std::ofstream out(filename.c_str(), std::ios::binary | std::ios::app);
-	
-	for(int index = 0;index<Info.size();index++)
-	{
-	    //reinterpret pro compilador considerar o objeto em bytes no tamanho do objeto, assim quando ler
-	    //do mesmo tamanho vai pegar exatamente o objeto
-		out.write(reinterpret_cast<const char*>(&Info[index]), sizeof(academicInfo));
+	nlohmann::json data;
+	//verifica se ja existe
+	std::ifstream inFile(jsonFile);
+	if (inFile.is_open()) {
+		inFile >> data;    
+		inFile.close();
 	}
+	//verifica se tem o tipo
+	if (!data.contains(type)) {
+		data[type] = nlohmann::json::array();
+	}
+
+	data[type].push_back(json);
+
+	std::ofstream file(jsonFile);
+
+	file << data.dump(0);
+	file.close();
+
+	 std::ifstream inFile("index.json");
+	 if(inFile.is_open())
+	 {
+		inFile>>data;
+		inFile.close();
+	 }
+
+	if (!data.contains(type)) {
+		data[type] = nlohmann::json::array();
+	}
+	nlohmann::json dataIndex = {
+								type:
+									{"id" : json["id"],"index": json["cpf"]}
+														};
 	
-	out.close();
-	
-	return;
 }
 
-//mesma coisa o template
-template <typename academicInfo>
-
-//retorna o vetor com as informacoes lida do arquivo, pega o nome do arquivo
-std::vector<academicInfo> crudeReadInformation(std::string filename)
+nlohmann::json searchByIndex(std::string jsonFile, std::string index)
 {
-    //ifstream pra ler, só precisa da flag binary pra ler o arquivo binario
-	std::ifstream in(filename.c_str(), std::ios::binary);
-	
-	//string pra guardar o que for lido do arquivo
-	std::vector<academicInfo> Infos;
-	
-	//objeto pra ler objeto por objeto
-	academicInfo Info;
-	
-	//while para ler todos os objetos em bin e inserir no vetor, pelo tamanho do objeto(sizeof), dentro de objeto Info
-	while(in.read(reinterpret_cast<char*>(&Info), sizeof(academicInfo)))
-	{
-		Infos.push_back(Info);
-	}
-	
-	in.close();
-    
-    //retorna o vetor
-	return Infos;
+
+	std::ifstream arquivo(jsonFile);
+	nlohmann::json data;
+	arquivo >> data;
+
+	return data;
+
+
+
+
+	return json;
 }
-*/
 
 
 int main() {
     
-    //vetores para guardar em memoria estudantes e registros de curso
+    //vetores teste para guardar em memoria estudantes e registros de curso 
     std::vector<Student> students;
     std::vector<CourseRegistration> registeredCourses;
 
@@ -119,37 +124,72 @@ int main() {
     registeredCourses.push_back(CourseRegistration("2", "3", 6, 0));
     
     //funcao crudeSaveInformation para salvar nos arquivos binarios os objetos guardados nos vetores em memoria
-    jsonSaveInformation(students, "general.json", "students");
-    jsonSaveInformation(registeredCourses, "general.json", "courses");
-    
-    std::cout << "Dados salvos com sucesso." << std::endl;
-    
-    //vetores para resgatar os objetos salvos nos arquivos binarios, utilizando a funcao crudeReadInformation
-	nlohmann::json retrievedData = jsonReadInformation("general.json");
-    
-    std::cout << "Dados carregados na memoria com sucesso.\n\n" << std::endl;
-    std::cout << "Dados:\n" << std::endl;
-    
-    //teste de impressao 
-    for(auto& student : retrievedData["students"])
+	
+	for(auto& reg : registeredCourses)
 	{
-		std::cout
-		<<"CPF: "<<student["CPF"]
-		<<"\nId: "<<student["id"]
-		<<"\nNome: "<<student["name"]
-		<<"\nEndereco: "<<student["address"]
-		<<"\nData: "<<student["dayDate"]<<"\\"<<student["monthDate"]<<"\\"<<student["yearDate"]
-		<<std::endl<<std::endl;
+		includeJson("general.json", "courses", reg.getJson());
 	}
 	
-    for(auto& course: retrievedData["courses"])
+	for(auto& reg : students)
 	{
-		std::cout
-		<<"Id do Curso: "<<course["id"]
-		<<"\nId do Estudante: "<<course["studentId"]
-		<<"\nCreditos: "<<course["credit"]
-		<<"\nNota: "<<course["grade"]
-		<<std::endl<<std::endl;
+		includeJson("general.json", "students", reg.getJson());
+	}
+	
+	nlohmann::json test = jsonReadInformation("general.json");
+
+	for(auto& e: test["students"])
+	{
+		std::cout<<"Nome: "<<e["name"]<<std::endl;
+	}
+    
+    std::cout << "Dados teste salvos com sucesso." << std::endl;
+    
+    while(true)
+	{
+		std::cout<<"1. Inserir aluno"<<std::endl;
+		std::cout<<"2. Deletar aluno"<<std::endl;
+		std::cout<<"3. Procurar aluno"<<std::endl;
+		std::cout<<"4. Inserir curso"<<std::endl;
+		std::cout<<"5. Deletar curso"<<std::endl;
+		std::cout<<"6. Procurar curso"<<std::endl;
+
+		std::string userChoice;
+		std::cin>>userChoice;
+
+		int choice = stoi(userChoice);
+
+		Student* jsonFileStudent;
+		CourseRegistration* jsonFileRegistration;
+		nlohmann::json* recoveredJson;
+
+		switch(choice)
+		{
+			case 1:
+			
+				break;
+			case 2:
+				
+				break;
+			case 3:
+
+
+				std::cout<<"Insira o CPF: "<<std::endl;
+				std::cin>>userChoice;
+				break;
+			case 4:
+			
+				break;
+			case 5:
+
+				break;
+			case 6:
+
+
+
+				std::cout<<"Insira o ID do curso: "<<std::endl;
+				std::cin>>userChoice;
+				break;
+		}
 	}
     
     return 0;

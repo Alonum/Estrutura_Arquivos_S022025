@@ -3,6 +3,7 @@
 #ifndef STUDENT_HPP
 #define STUDENT_HPP
 
+#include <iostream>
 #include <string>
 #include <ctime>
 #include <cstring>
@@ -19,7 +20,7 @@ private:
 
 public:
     Student();
-    Student(const std::string& CPF, const std::string& id, const std::string& name, const std::string& address, const unsigned& day, const unsigned& month, const unsigned& year);
+    Student(const std::string& id, const std::string& CPF, const std::string& name, const std::string& address, const unsigned& day, const unsigned& month, const unsigned& year);
     
     std::string getCPF() const ;
     std::string getId() const ;
@@ -30,6 +31,7 @@ public:
     int getCreditHours() const ;
     
     void addCredits(int credits);
+    void show();
 };
 
 #endif

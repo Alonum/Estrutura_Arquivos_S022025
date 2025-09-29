@@ -54,3 +54,11 @@ nlohmann::json CourseRegistration::getJson() const{
     return courseRegister;
 }
 
+void CourseRegistration::show()
+{
+    std::cout<<"ID Curso: "<<this->courseId<<std::endl;
+    std::cout<<"ID Estudante: "<<this->studentId<<std::endl;
+    std::cout<<"Creditos: "<<this->creditHours<<std::endl;
+    std::cout<<"Nota: "<<this->grade<<std::endl;
+}
+

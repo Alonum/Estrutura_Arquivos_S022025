@@ -5,7 +5,7 @@
 
 Student::Student() = default;
 
-Student::Student(const std::string& CPF, const std::string& id, const std::string& name, const std::string& address, const unsigned& day, const unsigned& month, const unsigned& year)
+Student::Student(const std::string& id, const std::string& CPF, const std::string& name, const std::string& address, const unsigned& day, const unsigned& month, const unsigned& year)
 {
     if (day < 1 || day > 31)
         throw std::invalid_argument("Dia invalido!");
@@ -50,10 +50,10 @@ void Student::addCredits(int credits) {
 }
 
 nlohmann::json Student::getJson() const{
-    nlohmann::json student = { 
+    nlohmann::json student = {
+        {"id", this->id},  
         {"name", this->name}, 
         {"CPF", this->CPF}, 
-        {"id", this->id}, 
         {"address", this->address}, 
         {"dayDate", this->enrollmentDate.tm_mday},
         {"monthDate", this->enrollmentDate.tm_mon},
@@ -62,4 +62,15 @@ nlohmann::json Student::getJson() const{
     };
 
     return student;
+}
+
+void Student::show()
+{
+    std::cout<<"ID: "<<this->name<<std::endl;
+    std::cout<<"CPF: "<<this->name<<std::endl;
+    std::cout<<"Nome: "<<this->name<<std::endl;
+    std::cout<<"Creditos: "<<this->name<<std::endl;
+    std::cout<<"Endereco: "<<this->name<<std::endl;
+    std::cout<<"Data de Ingresso: "<<this->enrollmentDate.tm_mday<<"/"<<this->enrollmentDate.tm_mon<<"/"<<enrollmentDate.tm_year<<std::endl;
+
 }

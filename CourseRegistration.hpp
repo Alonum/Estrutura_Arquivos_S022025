@@ -3,6 +3,7 @@
 #ifndef COURSEREGISTRATION_HPP
 #define COURSEREGISTRATION_HPP
 
+#include <iostream>
 #include <string>
 #include <cstring>
 #include "nlohmann/json.hpp"
@@ -30,6 +31,8 @@ public:
     void setStudentId(const char* id);
     void setCreditHours(int creditHours);
     void setGrade(double grade);
+    void show();
+
 };
 
 #endif

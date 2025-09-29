@@ -107,9 +107,9 @@ int main() {
     std::vector<Student> students;
     std::vector<CourseRegistration> registeredCourses;
 
-    students.push_back(Student("1", "Alona", "Rua 16", 16, 5, 2004));
-    students.push_back(Student("2", "Joao", "Rua 10", 5, 12, 2006));
-    students.push_back(Student("3", "Pedro", "Rua 3", 20, 4, 2002));
+    students.push_back(Student("532412", "1", "Alona", "Rua 16", 16, 5, 2004));
+    students.push_back(Student("123124", "2", "Joao", "Rua 10", 5, 12, 2006));
+    students.push_back(Student("123422", "3", "Pedro", "Rua 3", 20, 4, 2002));
 
     registeredCourses.push_back(CourseRegistration("1", "1", 3, 0));
     registeredCourses.push_back(CourseRegistration("2", "1", 6, 0));
@@ -134,7 +134,8 @@ int main() {
     for(auto& student : retrievedData["students"])
 	{
 		std::cout
-		<<"Id: "<<student["id"]
+		<<"CPF: "<<student["CPF"]
+		<<"\nId: "<<student["id"]
 		<<"\nNome: "<<student["name"]
 		<<"\nEndereco: "<<student["address"]
 		<<"\nData: "<<student["dayDate"]<<"\\"<<student["monthDate"]<<"\\"<<student["yearDate"]

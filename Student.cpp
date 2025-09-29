@@ -5,13 +5,14 @@
 
 Student::Student() = default;
 
-Student::Student(const std::string& id, const std::string& name, const std::string& address, const unsigned& day, const unsigned& month, const unsigned& year)
+Student::Student(const std::string& CPF, const std::string& id, const std::string& name, const std::string& address, const unsigned& day, const unsigned& month, const unsigned& year)
 {
     if (day < 1 || day > 31)
         throw std::invalid_argument("Dia invalido!");
     if (month < 1 || month > 12)
         throw std::invalid_argument("Mes invalido!");
 
+    this->CPF = CPF;
     this->id = id;
     this->name = name;
     this->address = address;

@@ -39,7 +39,7 @@
    ],
    "students": [
       {
-         "CPF": "",
+         "CPF": "532412",
          "address": "Rua 16",
          "credits": 1600677166,
          "dayDate": 16,
@@ -49,7 +49,7 @@
          "yearDate": 2004
       },
       {
-         "CPF": "",
+         "CPF": "123124",
          "address": "Rua 10",
          "credits": 1600677166,
          "dayDate": 5,
@@ -59,7 +59,7 @@
          "yearDate": 2006
       },
       {
-         "CPF": "",
+         "CPF": "123422",
          "address": "Rua 3",
          "credits": 1600677166,
          "dayDate": 20,

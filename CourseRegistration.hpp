@@ -10,25 +10,25 @@
 
 class CourseRegistration {
 private:
-    char courseId[7];
-    char studentId[7];
+    std::string courseId;
+    std::string studentId;
     int creditHours;
     double grade;
 
 public:
     CourseRegistration();
-    CourseRegistration(const char* id, const char* studentId, int credit, double grade);
+    CourseRegistration(const std::string& id, const std::string& studentId, int credit, double grade);
     
-    const char* getId();
-    const char* getStudentId();
+    const std::string getId();
+    const std::string getStudentId();
     int getCreditHours();
     double getGrade();
     nlohmann::json getJson() const;
 
 
     
-    void setId(const char* id);
-    void setStudentId(const char* id);
+    void setId(const std::string id);
+    void setStudentId(const std::string id);
     void setCreditHours(int creditHours);
     void setGrade(double grade);
     void show();

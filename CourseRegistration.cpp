@@ -4,18 +4,14 @@
 
 CourseRegistration::CourseRegistration() = default;
 
-CourseRegistration::CourseRegistration(const char* id, const char* studentId, int credit, double grade)
-    : creditHours(credit), grade(grade) 
-    {
-        strcpy(this->courseId, id);
-        strcpy(this->studentId, studentId);
-    }
+CourseRegistration::CourseRegistration(const std::string& id, const std::string& studentId, int credit, double grade)
+    : creditHours(credit), grade(grade) , courseId(id), studentId(studentId){}
 
-const char* CourseRegistration::getId() {
+const std::string CourseRegistration::getId() {
     return this->courseId;
 }
 
-const char* CourseRegistration::getStudentId() {
+const std::string CourseRegistration::getStudentId() {
     return this->studentId;
 }
 
@@ -27,12 +23,12 @@ double CourseRegistration::getGrade() {
     return this->grade;
 }
 
-void CourseRegistration::setId(const char* id) {
-    strcpy(this->courseId, id);
+void CourseRegistration::setId(const std::string id) {
+    this->courseId = id;
 }
 
-void CourseRegistration::setStudentId(const char* id) {
-    strcpy(this->studentId, id);
+void CourseRegistration::setStudentId(const std::string id) {
+    this->studentId = id;
 }
 
 void CourseRegistration::setCreditHours(int creditHours) {
